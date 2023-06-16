@@ -7,7 +7,7 @@ client_secret = "UgF8Q~a4WLrp7cSY2TIZHbaG-8lbvNUfHb~MCcqS"
 # Resource Group/Location
 location = "West Europe"
 resource_group_name = "Azuredevops"
-resource_group = "Azuredevops"
+resource_group = "Azuredevops1"
 application_type = "myApplication"
 
 # Network

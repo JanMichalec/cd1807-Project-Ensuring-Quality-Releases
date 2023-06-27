@@ -113,7 +113,7 @@ stages:
       displayName: Run Regression Tests
       continueOnError: true
       inputs:
-        script: 'newman run intro-to-postman.json --reporters cli,junit --reporter-junit-export TEST-Regression.xml'
+        script: 'newman run api-integration-test.json --reporters cli,junit --reporter-junit-export TEST-Regression.xml'
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
     # Postman - Publish Results 
     # ToDo: Complete the task as explained here: https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml#yaml-snippet
@@ -179,7 +179,8 @@ stages:
   # ToDo: Provide <environment name> you created in your DevOps project
   - deployment: FakeRestAPI
     pool:
-      vmImage: 'Ubuntu-18.04'    
+      vmImage: 'Ubuntu-18.04'
+      name: myAgentPool  # added   
     environment: 'test-vm'   # ToDo
     strategy:
       runOnce:

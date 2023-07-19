@@ -99,21 +99,13 @@ stages:
       inputs:
         script: 'sudo npm install -g newman'
         workingDirectory: $(System.DefaultWorkingDirectory)
-    # Postman Data Validation Test Suite    
+   
     # ToDo: Verify the working directory
     - task: CmdLine@2
-      displayName: Run Data Validation Tests
+      displayName: Postman Tests
       continueOnError: true
       inputs:
-        script: 'newman run ./automatedtesting/postman/validationtest.json -e automatedtesting/postman/validationtestenv.postman_environment.json --reporters cli,junit --reporter-junit-export ./validationtest.xml --suppress-exit-code'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
-    # Postman Regression Test Suite    
-    # ToDo: Verify the working directory
-    - task: CmdLine@2
-      displayName: Run Regression Tests
-      continueOnError: true
-      inputs:
-        script: 'newman run ./automatedtesting/postman/regressiontest.json --reporters cli,junit --reporter-junit-export ./regressiontest.xml --suppress-exit-code'
+        script: 'newman run ./automatedtesting/postman/postman_test.json --reporters cli,junit --reporter-junit-export ./postman_test.xml'
         workingDirectory: '$(System.DefaultWorkingDirectory)'
     - task: PublishTestResults@2
       inputs:

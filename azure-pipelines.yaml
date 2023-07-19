@@ -21,11 +21,6 @@ variables:
 
 
 
-
-
-
-
-
 stages:
 - stage: Selenium
   jobs:
@@ -61,6 +56,7 @@ stages:
             echo "Starting Selenium Tests"
             python3 ui_test.py >> selenium.log
             echo "Completed Selenium Tests. Check selenium.log for results."
+          workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium/'
 #--------------------------------------------#  
 # BUILD STAGE
 #--------------------------------------------#    

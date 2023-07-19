@@ -24,7 +24,7 @@ variables:
 stages:
 - stage: Selenium
   jobs:
-  - job: Selenium
+  - job: Install Selenium
     steps:
       - task: Bash@3
         inputs:
@@ -58,7 +58,11 @@ stages:
             pwd
             python3 ui_test.py >> selenium.log
             echo "Completed Selenium Tests. Check selenium.log for results."
-          workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium/'
+      - task: CmdLine@2
+        displayName: Run ui test
+        inputs:
+          script: 'ls'
+          workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/selenium
 #--------------------------------------------#  
 # BUILD STAGE
 #--------------------------------------------#    

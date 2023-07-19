@@ -24,7 +24,7 @@ variables:
 stages:
 - stage: Selenium
   jobs:
-  - job: Install Selenium
+  - job: Selenium
     steps:
       - task: Bash@3
         inputs:

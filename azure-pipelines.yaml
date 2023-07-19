@@ -26,6 +26,20 @@ stages:
   jobs:
   - job: Selenium
     steps:
+        #--------------------------------------------#
+    # Selenium (UI) Test Suite - Archive the package  
+    # "ArchiveFiles@2" picks up the web package and archives it.
+    - task: ArchiveFiles@2
+      displayName: 'Archive UI Tests'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+    # Selenium Test Suite - Publish the package  
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   # Same as the archiveFile artifact above. 
+      displayName: 'Upload Package'
+      artifact: drop-uitests
       - task: Bash@3
         inputs:
           targetType: 'inline'
@@ -58,11 +72,11 @@ stages:
             pwd
             python3 ui_test.py >> selenium.log
             echo "Completed Selenium Tests. Check selenium.log for results."
-      - task: CmdLine@2
-        displayName: Run ui test
-        inputs:
-          script: 'python3 ui_test.py'
-          workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/selenium
+      # - task: CmdLine@2
+      #   displayName: Run ui test
+      #   inputs:
+      #     script: 'python3 ui_test.py'
+      #     workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/selenium
 #--------------------------------------------#  
 # BUILD STAGE
 #--------------------------------------------#    
@@ -155,20 +169,20 @@ stages:
         testResultsFiles: '$(System.DefaultWorkingDirectory)/*.xml'
         searchFolder: '$(System.DefaultWorkingDirectory)'
 
-    #--------------------------------------------#
-    # Selenium (UI) Test Suite - Archive the package  
-    # "ArchiveFiles@2" picks up the web package and archives it.
-    - task: ArchiveFiles@2
-      displayName: 'Archive UI Tests'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-    # Selenium Test Suite - Publish the package  
-    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   # Same as the archiveFile artifact above. 
-      displayName: 'Upload Package'
-      artifact: drop-uitests
+    # #--------------------------------------------#
+    # # Selenium (UI) Test Suite - Archive the package  
+    # # "ArchiveFiles@2" picks up the web package and archives it.
+    # - task: ArchiveFiles@2
+    #   displayName: 'Archive UI Tests'
+    #   inputs:
+    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+    #     includeRootFolder: false
+    #     archiveType: 'zip'
+    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+    # # Selenium Test Suite - Publish the package  
+    # - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   # Same as the archiveFile artifact above. 
+    #   displayName: 'Upload Package'
+    #   artifact: drop-uitests
 
     #--------------------------------------------#    
     # FakeRestAPI - Archive

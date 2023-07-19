@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "42223935-1451-4a52-8844-174f73901185",
-		"name": "Regression Test",
+		"_postman_id": "8a06a0e5-0cbd-4f8d-973a-2ba05bab7ff3",
+		"name": "Postman Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27897211"
 	},
@@ -28,7 +28,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
+					"raw": "{\n    \"userid\": 100,\n     \"title\": \"test5\",\n     \"body\": \"test\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

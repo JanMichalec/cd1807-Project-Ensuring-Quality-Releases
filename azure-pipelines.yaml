@@ -146,7 +146,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: 
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -192,7 +192,7 @@ stages:
               azureSubscription: 'myServiceConnection'     # ToDo
               appName: 'myApplication-AppService'               # ToDo
               appType: webApp
-              package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip      # ToDo: Use the published zip artifact. 
+              package: '$(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip'      # ToDo: Use the published zip artifact. 
           #--------------------------------------------#    
           # Run JMeter test suite against the App Service
           - task: CmdLine@2

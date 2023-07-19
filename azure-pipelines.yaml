@@ -118,12 +118,10 @@ stages:
     # Postman - Publish Results 
     # ToDo: Complete the task as explained here: https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml#yaml-snippet
     - task: PublishTestResults@2
+      condition: always()
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '**/TEST-*.xml'
-        searchFolder: $(System.DefaultWorkingDirectory)
-        mergeTestResults: true
-        testRunTitle: 'Postman test'
 
     #--------------------------------------------#
     # Selenium (UI) Test Suite - Archive the package  

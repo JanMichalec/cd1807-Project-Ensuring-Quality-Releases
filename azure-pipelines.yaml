@@ -105,28 +105,20 @@ stages:
       displayName: Run Data Validation Tests
       continueOnError: true
       inputs:
-        script: 'newman run api-integration-test.json --reporters cli,junit --reporter-junit-export ./regression.xml'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+        script: 'newman run ./automatedtesting/postman/validationtest.json -e automatedtesting/postman/validationtestenv.postman_environment.json --reporters cli,junit --reporter-junit-export ./validationtest.xml --suppress-exit-code'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
     # Postman Regression Test Suite    
     # ToDo: Verify the working directory
     - task: CmdLine@2
       displayName: Run Regression Tests
       continueOnError: true
       inputs:
-        script: 'newman run api-integration-test.json --reporters cli,junit --reporter-junit-export ./validation.xml'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
-    # debug, search for the files
-    - task: CmdLine@2
-      inputs:
-        script: 'ls'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
-    # Postman - Publish Results 
-    # ToDo: Complete the task as explained here: https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml#yaml-snippet
+        script: 'newman run ./automatedtesting/postman/regressiontest.json --reporters cli,junit --reporter-junit-export ./regressiontest.xml --suppress-exit-code'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
     - task: PublishTestResults@2
       inputs:
-        testResultsFormat: 'VSTest'
-        testResultsFiles: '$(System.DefaultWorkingDirectory)/automatedtesting/postman/*.xml'
-        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+        testResultsFiles: '$(System.DefaultWorkingDirectory)/*.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)'
 
     #--------------------------------------------#
     # Selenium (UI) Test Suite - Archive the package  

@@ -20,7 +20,7 @@ resource "azurerm_linux_virtual_machine" "" {
   network_interface_ids = []
   admin_ssh_key {
     username   = "honza"
-    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2TKylA+Kh+0Z9MhDZtl+cd8BNXofa4hRuiMdXwDgmxefgL35opxRTLYEUiNFa+UvdLKYORUKwLcMb2tHi3KlGBR8UIZEEq0GEgNMvORsZ0TSx4rgdvRCtuDvSZRaFmXCMV21joWy9fgMVeDFzRV+ZB7ee/kKo8jkAG4MQ+N9JET4RZyXkk3HjbQ9PhkMJaYoWtKJTXGWhaKTfQlvOYmNLNBsFFZjOtodn8eZ4UIKCz7X9aA44wSZM/Xu0XvBrOnfJ5iQH8dAbnR+J1nF/qQM5fObonq95vZO2jf4co303cIPPK9umz97qNHOF+IjR3z7bVrMuwgedlb0VhKZMk8osl/zvRYUx9G380UE0e9W9WSX/VI4zfLhQFYz1wmRjf5MFC2ofWsezdXGtmRYRU8moGEHna2bb/n6kmLhHzR69IbUBye/cITrnFrFctjlOd7qegcjkC8p7yCSa9S0QFcbhm5ydCxFAb4KWouhn2zvIOFpWktNTnhcIxas/FrHgnAM= odl_user@cc-c196b652-56bfb8d67-p8g7p"
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7VGNNL5whsKmp3CDJ96ZzQPFwjo1XMylz0KpMlhphs/vuWq1565EYcOwR6zMarhty3nbAVeGnD5ULKelzhFjeYzrdCRTUOBTvfvJb1cyO5k7XN5IJyrpxkHXzoXE4KcY5Ke2JUnrxBXg1bL1xuliXpn1hGMC28922dTqRLuse9RiX/G0AYSnpZIpHcz246zXFD2IkXHgeEJn37cehkB0Fdkz8f7h/+k1bqt2T7GTRKCcgB3Izc8kySeTSkTWgx4TqlcCJy5bfDmeEzjMhyuFP7IFTnrEbx4VKpHyp3ArNwfhEhPi8uRdfBFs1H110UAesma1p6fFUfKysXcDm2XA3xHJmtVbIBTbdw/hluFdWI7F4XTQiO0GryaH3gljcdyMQVZ+hmMwc71Ggz0r9DXppRlNN8+FXzeO/rB5oi1rzUlAGqOrDSxv3jAUmMf4fhAxO1bTM+Bd3mb2qU7ciZd+7PWBI1DN0WlUPKKVStCDjiXHbG1ukCqRhjIueCGnrIh0= odl_user@cc-f958-f9bae4e1-6cdfb47bf5-mgv4b"
   }
   os_disk {
     caching           = "ReadWrite"

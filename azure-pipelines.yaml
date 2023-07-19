@@ -29,8 +29,28 @@ stages:
       - task: Bash@3
         inputs:
           targetType: 'inline'
-          script: |           
-            #! /bin/bash
+          script: | 
+            sudo apt-get upgrade -y
+            sudo apt-get install python3-pip -y
+            sudo apt-get install unzip -y
+            sudo apt-get install -y chromium-browser
+            pip3 install selenium
+            
+            # download chrome driver
+            FILE=chromedriver_linux64.zip
+            if [ -f "$FILE" ]; then
+              echo "$FILE exists."
+            else
+              wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+            fi
+            # install chrome driver
+            unzip chromedriver_linux64.zip
+            sudo mv chromedriver /usr/bin/chromedriver
+            sudo chown root:root /usr/bin/chromedriver
+            sudo chmod +x /usr/bin/chromedriver
+            chromium-browser -version
+            chromedriver --version          
+        #! /bin/bash
             
             sudo apt-get upgrade -y
             sudo apt-get install python3-pip -y

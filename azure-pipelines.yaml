@@ -26,66 +26,43 @@ stages:
   jobs:
   - job: Selenium
     steps:
-        #--------------------------------------------#
-    # Selenium (UI) Test Suite - Archive the package  
-    # "ArchiveFiles@2" picks up the web package and archives it.
-    - task: ArchiveFiles@2
-      displayName: 'Archive UI Tests'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/uitests.zip'
-        replaceExistingArchive: true
-    - upload: $(Build.ArtifactStagingDirectory)/uitests.zip
-      artifact: uitests
-
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |           
-          #! /bin/bash
-          
-          sudo apt-get upgrade -y
-          sudo apt-get install python3-pip -y
-          sudo apt-get install unzip -y
-          sudo apt-get install -y chromium-browser
-          pip3 install selenium
-          cd ~/
-          DIR=/home/testuser/app
-          if [ ! -d "$DIR" ]; then
-              mkdir app
-          fi
-          mv /home/testuser/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
-          cd app
-          unzip -o $(Build.BuildId)-uitests.zip
-          FILE=/home/testuser/app/chromedriver_linux64.zip
-          if [ ! -f "$FILE" ]; then
-              LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-              wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
-              unzip -o chromedriver_linux64.zip
-              sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
-          fi
-          export PATH=$PATH:/home/testuser/app
-          echo "Starting Selenium Tests"
-          ls
-          pwd
-          python3 ui_test.py >> selenium.log
-          echo "Completed Selenium Tests. Check selenium.log for results."
-    - download: current
-      displayName: 'Download py file'
-      artifact: uitests
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          if [ ! -d /var/log/selenium ]; then
-            sudo mkdir /var/log/selenium
-            sudo chmod 777 /var/log/selenium
-          fi
-          unzip -o $(Pipeline.Workspace)/Selenium/selenium.zip -d .
-          python3 ui_test.py
-      displayName: 'Run UI Test'
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |           
+            #! /bin/bash
+            
+            sudo apt-get upgrade -y
+            sudo apt-get install python3-pip -y
+            sudo apt-get install unzip -y
+            sudo apt-get install -y chromium-browser
+            pip3 install selenium
+            cd ~/
+            DIR=/home/testuser/app
+            if [ ! -d "$DIR" ]; then
+                mkdir app
+            fi
+            mv /home/testuser/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+            cd app
+            unzip -o $(Build.BuildId)-uitests.zip
+            FILE=/home/testuser/app/chromedriver_linux64.zip
+            if [ ! -f "$FILE" ]; then
+                LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+                wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+                unzip -o chromedriver_linux64.zip
+                sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
+            fi
+            export PATH=$PATH:/home/testuser/app
+            echo "Starting Selenium Tests"
+            ls
+            pwd
+            python3 ui_test.py >> selenium.log
+            echo "Completed Selenium Tests. Check selenium.log for results."
+      - task: CmdLine@2
+        displayName: Run ui test
+        inputs:
+          script: 'python3 ui_test.py'
+          workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/selenium
 #--------------------------------------------#  
 # BUILD STAGE
 #--------------------------------------------#    
@@ -178,20 +155,20 @@ stages:
         testResultsFiles: '$(System.DefaultWorkingDirectory)/*.xml'
         searchFolder: '$(System.DefaultWorkingDirectory)'
 
-    # #--------------------------------------------#
-    # # Selenium (UI) Test Suite - Archive the package  
-    # # "ArchiveFiles@2" picks up the web package and archives it.
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive UI Tests'
-    #   inputs:
-    #     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
-    # # Selenium Test Suite - Publish the package  
-    # - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   # Same as the archiveFile artifact above. 
-    #   displayName: 'Upload Package'
-    #   artifact: drop-uitests
+    #--------------------------------------------#
+    # Selenium (UI) Test Suite - Archive the package  
+    # "ArchiveFiles@2" picks up the web package and archives it.
+    - task: ArchiveFiles@2
+      displayName: 'Archive UI Tests'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip'
+    # Selenium Test Suite - Publish the package  
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-uitests.zip   # Same as the archiveFile artifact above. 
+      displayName: 'Upload Package'
+      artifact: drop-uitests
 
     #--------------------------------------------#    
     # FakeRestAPI - Archive

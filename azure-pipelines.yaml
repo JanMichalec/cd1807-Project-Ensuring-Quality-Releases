@@ -61,7 +61,7 @@ stages:
       - task: CmdLine@2
         displayName: Run ui test
         inputs:
-          script: 'ls'
+          script: 'python3 ui_test.py'
           workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/selenium
 #--------------------------------------------#  
 # BUILD STAGE

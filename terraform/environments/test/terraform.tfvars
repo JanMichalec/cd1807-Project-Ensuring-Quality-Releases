@@ -1,8 +1,8 @@
 # Azure subscription vars
-subscription_id = "51003162-956a-4e6f-877b-3d0d913c7ca1"
+subscription_id = "99c360d5-5a1d-45b7-93ae-80a16feaccb7"
 tenant_id = "f958e84a-92b8-439f-a62d-4f45996b6d07"
-client_id = "3b51282b-8497-4b3e-8c90-2b3aa14f7701"  # service principal ID
-client_secret = "scq8Q~neY8qhEg7y1A7eUtOYndlMkVGDfEAzbbLs"  # service principal key
+client_id = "cd9a03ef-b2ea-4448-855d-c8f697ac35e9"  # service principal ID
+client_secret = "MDr8Q~MZTEhy.1hsFMf5yVF-nm7AveHEn1vrAc2C"  # service principal key
 
 # Resource Group/Location
 location = "West Europe"

@@ -196,7 +196,7 @@ stages:
   # Selenium | Functional UI Tests
   # ToDo: 
 
-- stage: Selenium Tests
+- stage: Selenium
   jobs:
   #--------------------------------------------#  
   # Deploy FakeRestAPI Web App

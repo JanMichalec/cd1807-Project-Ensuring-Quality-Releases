@@ -190,7 +190,7 @@ stages:
             displayName: 'Deploy Azure Web App'
             inputs:
               azureSubscription: 'myServiceConnection'     # ToDo
-              appName: 'myApp'               # ToDo
+              appName: 'myApplication-AppService'               # ToDo
               appType: webApp
               package: $(Pipeline.Workspace)/$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip      # ToDo: Use the published zip artifact. 
           #--------------------------------------------#    
